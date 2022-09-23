@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ejemplo de Factura con DI</title>
+</head>
+
+<body>
+
+<h1>Inyeccion de dependencias con ejemplo de Factura</h1>
+<h1>Caracteres especiales como acentos en properties se tratan de diferente manera min 7:30 V-627</h1>
+<h1 th:text="${titulo}"></h1>
+
+<h3 th:text="${factura.description}"></h3>
+
+<div>Cliente: <span th:text="${factura.client.name + ' ' + factura.client.lastName}"></span></div>
+
+<h3>Detalle de la Factura</h3>
+
+<h3 th:if="${factura.listItems.size() == 0}">No hay facturas</h3>
+<table th:if="${factura.listItems.size() > 0}">
+	<thead>
+		<tr>
+			<th>Nombre</th>
+			<th>Precio</th>
+			<th>Cantidad</th>
+			<th>Total</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="item: ${factura.listItems}">
+			<td th:text="${item.product.name}"></td>
+			<td th:text="${item.product.price}"></td>
+			<td th:text="${item.amount}"></td> 
+			<td th:text="${item.amount * item.product.price}"></td> 
+		</tr>
+	</tbody>
+</table>
+
+</body>
+</html>
